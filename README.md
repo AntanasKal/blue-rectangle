@@ -16,7 +16,7 @@ Controls:
 
 ![Gameplay](./assets/gameplay.gif)
 
-The game implements continuous collision detection following an idea suggested in the paper [Functional Reactive Programming, Refactored (Perez et al.)](https://www.cs.nott.ac.uk/~psxip1/papers/2016-HaskellSymposium-Perez-Barenz-Nilsson-FRPRefactored-short.pdf) which introduces monadic stream functions and gives examples on how they can be used to implement various game mechanics with different choices of monads. Continuous collision detection is outlined in section 7.1.3 where it is shown how predicted collision times can be calculated from within the MSFs and how the times can be retrieved from the top level reactimate functions using `CCDGameMonad` defined in the paper. `CCDGameMonad` allows holding predicted collision times in writer monad context. Example given in the paper is a simple case of a falling and bouncing ball in one dimension. This game implements the idea from the ["FRP, Refactored"](https://www.cs.nott.ac.uk/~psxip1/papers/2016-HaskellSymposium-Perez-Barenz-Nilsson-FRPRefactored-short.pdf) paper in 2D setting with multiple moving objects.
+The game implements continuous collision detection following an idea suggested in the paper [Functional Reactive Programming, Refactored (Perez et al.)](https://www.cs.nott.ac.uk/~psxip1/papers/2016-HaskellSymposium-Perez-Barenz-Nilsson-FRPRefactored-short.pdf). Section 7.1.3 outlines how predicted collision times can be calculated from within the MSFs and how the times can be retrieved from the top level reactimate functions using `CCDGameMonad` defined in the paper. `CCDGameMonad` allows holding predicted collision times in writer monad context. Example given in the paper is a simple case of a bouncing ball in one dimension. This game implements the idea from the paper in 2D setting with multiple moving objects.
 
 Bellow is the definition of `CCDGameMonad` used in this project, `tellFututureTime` is an MSF that puts a `FutureTime` value in the writer context (the context holds the minimal told value).
 
@@ -44,9 +44,10 @@ tellFutureTime = liftTransS $ arrM tell
 
 ## Rough outline of the game physics
 
-Each game object (enemy, player, static environment block) holds its trajectory data (position, velocity, acceleration). Accelerations are constant between the changes of collision and controls. So the trajectories can be thought to be piecewise parabolas. At every step:
+Each game object (enemy, player, static environment block) holds its trajectory data (position, velocity, acceleration). Accelerations are constant between the collision events and control changes. So the trajectories can be thought to be piecewise parabolas. At every step:
+
 - For each object its trajectory is update (according to the current parabola), and new control information is gathered.
-- Taking all of the object trajectories, new current collision statuses are calculated.
+- Taking all of the object trajectories, new collision information is calculated.
 - Taking collision information and control information of all the objects, new trajectories are calculated and switching event is produced to update object trajectories.
 - Based on new trajectories, nearest collision time is predicted (since trajectories are parabolas, it boils down to solving a bunch of quadratic equations).
 
