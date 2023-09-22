@@ -1,6 +1,6 @@
 # Blue Rectangle
 
-A 2D demo platformer made using [dunai](https://github.com/ivanperez-keera/dunai), [Bearriver](https://hackage.haskell.org/package/bearriver) and [Haskell SDL2 bindings](https://hackage.haskell.org/package/sdl2). This game physics implements a variant of continuous collision detection using.
+A 2D demo platformer game made using [dunai](https://github.com/ivanperez-keera/dunai), [Bearriver](https://hackage.haskell.org/package/bearriver) and [Haskell SDL2 bindings](https://hackage.haskell.org/package/sdl2). This game implements a variant of continuous collision detection.
 
 Rules:
 - You are the Blue Rectangle.
