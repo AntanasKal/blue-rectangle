@@ -1,6 +1,6 @@
 # Blue Rectangle
 
-A 2D demo platformer game made using [dunai](https://github.com/ivanperez-keera/dunai), [Bearriver](https://hackage.haskell.org/package/bearriver) and [Haskell SDL2 bindings](https://hackage.haskell.org/package/sdl2). This game implements a variant of continuous collision detection.
+A 2D demo platformer game made using [Dunai](https://github.com/ivanperez-keera/dunai), [Bearriver](https://hackage.haskell.org/package/bearriver) and [Haskell SDL2 bindings](https://hackage.haskell.org/package/sdl2). This game implements a variant of continuous collision detection.
 
 Rules:
 - You are the Blue Rectangle.
@@ -16,7 +16,7 @@ Controls:
 
 ![Gameplay](./assets/gameplay.gif)
 
-The game implements continuous collision detection following an idea suggested in the paper [Functional Reactive Programming, Refactored (Perez et al.)](https://www.cs.nott.ac.uk/~psxip1/papers/2016-HaskellSymposium-Perez-Barenz-Nilsson-FRPRefactored-short.pdf). Section 7.1.3 outlines how predicted collision times can be calculated from within the MSFs and how the times can be retrieved from the top level reactimate functions. This is done by using `CCDGameMonad` which is defined in the paper and which allows holding predicted collision times in writer monad context. Example given in the paper is a simple case of a bouncing ball in one dimension. In this game the idea is implemented in 2D setting with multiple moving objects.
+The game implements continuous collision detection following an idea suggested in the paper [Functional Reactive Programming, Refactored (Perez et al.)](https://www.cs.nott.ac.uk/~psxip1/papers/2016-HaskellSymposium-Perez-Barenz-Nilsson-FRPRefactored-short.pdf). Section 7.1.3 outlines how predicted collision times can be calculated from within the monadic stream functions and how the times can be retrieved from the top level reactimate functions. This is done by using `CCDGameMonad` which is defined in the paper and which allows holding predicted collision times in writer monad context. Example given in the paper is a simple case of a bouncing ball in one dimension. In this game the idea is implemented in 2D setting with multiple moving objects.
 
 For reference, bellow is the definition of `CCDGameMonad` used in this project, `tellFututureTime` is an MSF that puts a `FutureTime` value in the writer context (the context holds the minimal told value).
 
@@ -74,5 +74,5 @@ At the top level game logic loop, the nearest collision time can be extracted fr
 I would like to point to some literature that I reviewed while working on this project and from which I took some ideas: 
 
 - [Antony Courtney, Henrik Nilsson, John Peterson. The Yampa Arcade.](https://dl.acm.org/doi/10.1145/871895.871897) A good extended example on how to structure games with heterogeneous actors using Yampa library.
-- [Ivan Perez, Manuel Bärenz,  Henrik Nilsson. Functional Reactive Programming, Refactored.](https://www.cs.nott.ac.uk/~psxip1/papers/2016-HaskellSymposium-Perez-Barenz-Nilsson-FRPRefactored-short.pdf) An introduction to monadic stream functions and Dunai library. 
+- [Ivan Perez, Manuel Bärenz,  Henrik Nilsson. Functional Reactive Programming, Refactored.](https://www.cs.nott.ac.uk/~psxip1/papers/2016-HaskellSymposium-Perez-Barenz-Nilsson-FRPRefactored-short.pdf) An introduction to monadic stream functions and Dunai library. It contains multiple example on how various game mechanics (mostly time mechanics) can be implemented using MSF.
 - [Ivan Perez. Extensible and Robust Functional Reactive Programming.](http://www.cs.nott.ac.uk/~psxip1/papers/2017-Perez-thesis-latest.pdf) Parts of this PhD thesis covers topics on applications of monadic stream functions in game programming in greater detail, it could be used as a supplement to [FRP Refactored](https://www.cs.nott.ac.uk/~psxip1/papers/2016-HaskellSymposium-Perez-Barenz-Nilsson-FRPRefactored-short.pdf) paper.
